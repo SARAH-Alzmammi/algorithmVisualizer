@@ -1,23 +1,18 @@
-import logo from './logo.svg';
 import './App.css';
-
+import NavbarClass from './components/NavbarClass'
+import 'bootstrap/dist/css/bootstrap.min.css';
+// as Router,
+// Switch,
+// Route,
+// Link
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      {/* Nav bar */}
+      <NavbarClass/>
+      {/* Control Bar */}
+      {/* view box[name of the algorithm] take the size and speed as props */}
+
     </div>
   );
 }
