@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import './sort.css';
 import { Form } from 'react-bootstrap';
 
-class BubbleSort extends Component {
+class InsertionSort extends Component {
  constructor(props) {
   super(props);
    this.state = {
@@ -11,15 +11,13 @@ class BubbleSort extends Component {
      sizeValue: 5,
      arrayElements: [50, 40, 90, 30, 10],
    }
-   this.Bsort = this.Bsort.bind(this);
+  this.Isort = this.Isort.bind(this);
    this.waitforme = this.waitforme.bind(this);
    
    this.handleRangeChangeSpeed = this.handleRangeChangeSpeed.bind(this);
    this.handleRangeChangeSize = this.handleRangeChangeSize.bind(this);
    this.generateNewArray = this.generateNewArray.bind(this);
   }
-
-
   waitforme(milisec) { 
     return new Promise(resolve => { 
         setTimeout(() => { resolve('') }, milisec); 
@@ -45,7 +43,7 @@ class BubbleSort extends Component {
   }
 
 
-  async Bsort() {
+  async Isort() {
 //blue ==> in process #417AD5
 // red ==> not right //#D54A41
 //green ==> good     #4F7942
@@ -53,35 +51,33 @@ class BubbleSort extends Component {
 
     let arr = this.state.arrayElements
  
-    let arrayBar =  document.getElementsByClassName('arrayElement')
-     for (let i = 0; i < arr.length - 1; i++) {
-     
-       for (let j = 0; j < arr.length-i-1; j++) {
-       arrayBar[j].style.backgroundColor = "#417AD5";
-       arrayBar[j + 1].style.backgroundColor = "#417AD5";
-       
-       if (arr[j] > arr[j + 1]) {
-        await  this.waitforme(this.state.speedValue);
-        arrayBar[j].style.backgroundColor = "#D54A41";
-        arrayBar[j+1].style.backgroundColor = "#D54A41";
-        await  this.waitforme(this.state.speedValue);
-         let temp = arr[j];
-         arr[j] =arr[j+1];
-         arr[j + 1] = temp;
-         arrayBar[j].style.backgroundColor = "gray";
-         arrayBar[j+1].style.backgroundColor = "gray";
-         this.setState({ arrayElements: arr });
-       } else {
-        await  this.waitforme(this.state.speedValue);
-        arrayBar[j].style.backgroundColor = " #4F7942";
-        arrayBar[j+1].style.backgroundColor = " #4F7942";
-        await  this.waitforme(this.state.speedValue);
-        arrayBar[j].style.backgroundColor = "gray";
-        arrayBar[j+1].style.backgroundColor = "gray";
-       }
-     }
+    let arrayBar = document.getElementsByClassName('arrayElement')
 
-   }
+    for (let i = 1; i < arr.length; i++){
+
+      let current = arr[i];
+      let j = i - 1;//before the current position
+      await this.waitforme(this.state.speedValue);
+      arrayBar[i].style.backgroundColor = "#417AD5"; //current
+ 
+      while (j >= 0 && arr[j] > current) {
+        await this.waitforme(this.state.speedValue);
+
+        arr[j + 1] = arr[j];
+        this.setState({ arrayElements: arr })
+        arrayBar[j].style.backgroundColor = "#D54A41"; 
+        arrayBar[j+1].style.backgroundColor = "#D54A41";
+        j--;
+
+      }
+      arr[j + 1] = current;
+      this.setState({ arrayElements: arr })
+      arrayBar[j + 1].style.backgroundColor = "#4F7942";
+      await this.waitforme(this.state.speedValue);
+
+      arrayBar[j + 1].style.backgroundColor = "gray";
+    }
+ 
    this.setState({processing:false});
    }
 
@@ -90,8 +86,9 @@ class BubbleSort extends Component {
   
     return (
       <div className="box">
-                <h3 className="algoName">Bubble Sort</h3>
-      <div className="bars">
+        <h3 className="algoName">Insertion Sort</h3>
+        <div className="bars">
+          
       <Form.Label className="formLabel" >Speed</Form.Label>
 
       <Form.Range
@@ -99,11 +96,12 @@ class BubbleSort extends Component {
         onChange={this.handleRangeChangeSpeed}
         className="rang_bar"
         min={250}
-        max={3000}
+            max={3000}
+
       />
     
       <Form.Label className="formLabel">Size of the array : <span>{ this.state.sizeValue}</span></Form.Label>
-
+ 
       <Form.Range
         value={this.state.sizeValue}
         onChange={this.handleRangeChangeSize}
@@ -114,7 +112,7 @@ class BubbleSort extends Component {
         </div>
         
     <div className="view">
-    <div className="container">
+
       <div className="arrayContainer" key={this.state.arrayElements} >
         { this.state.arrayElements.map((value, idx) => (
           <div>
@@ -133,9 +131,9 @@ class BubbleSort extends Component {
      ))}
 </div>
 </div>
-</div>
+
     
-<button className="sortBtn" disabled={this.state.processing} onClick={this.Bsort} >SORT</button>
+<button className="sortBtn" disabled={this.state.processing} onClick={this.Isort} >SORT</button>
 
 
    </div>
@@ -143,4 +141,4 @@ class BubbleSort extends Component {
  }
 }
  
-export default BubbleSort ;
+export default InsertionSort ;

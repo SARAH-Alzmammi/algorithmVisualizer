@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import './sort.css';
 import { Form } from 'react-bootstrap';
 
-class BubbleSort extends Component {
+class SelectionSort extends Component {
  constructor(props) {
   super(props);
    this.state = {
@@ -11,15 +11,13 @@ class BubbleSort extends Component {
      sizeValue: 5,
      arrayElements: [50, 40, 90, 30, 10],
    }
-   this.Bsort = this.Bsort.bind(this);
+  this.Ssort = this.Ssort.bind(this);
    this.waitforme = this.waitforme.bind(this);
    
    this.handleRangeChangeSpeed = this.handleRangeChangeSpeed.bind(this);
    this.handleRangeChangeSize = this.handleRangeChangeSize.bind(this);
    this.generateNewArray = this.generateNewArray.bind(this);
   }
-
-
   waitforme(milisec) { 
     return new Promise(resolve => { 
         setTimeout(() => { resolve('') }, milisec); 
@@ -45,43 +43,44 @@ class BubbleSort extends Component {
   }
 
 
-  async Bsort() {
+  async Ssort() {
 //blue ==> in process #417AD5
-// red ==> not right //#D54A41
-//green ==> good     #4F7942
+//red ==> not right //#D54A41
+//green ==> good    //#4F7942
    this.setState({processing:true});
 
-    let arr = this.state.arrayElements
- 
-    let arrayBar =  document.getElementsByClassName('arrayElement')
-     for (let i = 0; i < arr.length - 1; i++) {
-     
-       for (let j = 0; j < arr.length-i-1; j++) {
-       arrayBar[j].style.backgroundColor = "#417AD5";
-       arrayBar[j + 1].style.backgroundColor = "#417AD5";
-       
-       if (arr[j] > arr[j + 1]) {
-        await  this.waitforme(this.state.speedValue);
-        arrayBar[j].style.backgroundColor = "#D54A41";
-        arrayBar[j+1].style.backgroundColor = "#D54A41";
-        await  this.waitforme(this.state.speedValue);
-         let temp = arr[j];
-         arr[j] =arr[j+1];
-         arr[j + 1] = temp;
-         arrayBar[j].style.backgroundColor = "gray";
-         arrayBar[j+1].style.backgroundColor = "gray";
-         this.setState({ arrayElements: arr });
-       } else {
-        await  this.waitforme(this.state.speedValue);
-        arrayBar[j].style.backgroundColor = " #4F7942";
-        arrayBar[j+1].style.backgroundColor = " #4F7942";
-        await  this.waitforme(this.state.speedValue);
-        arrayBar[j].style.backgroundColor = "gray";
-        arrayBar[j+1].style.backgroundColor = "gray";
-       }
-     }
+   let arr = this.state.arrayElements
+   let arrayBar =  document.getElementsByClassName('arrayElement')
+    for (let i = 0; i < arr.length; i++) {
+     let current_min = i;
 
-   }
+     await  this.waitforme(this.state.speedValue);
+     arrayBar[i].style.backgroundColor = "#417AD5";
+
+     for (let j = i + 1; j < arr.length; j++) {
+      await  this.waitforme(this.state.speedValue);
+      arrayBar[j].style.backgroundColor = "#D54A41";
+     if (arr[j] < arr[current_min]) {
+      current_min = j
+      }
+      await  this.waitforme(this.state.speedValue);
+      arrayBar[j].style.backgroundColor = "gray";
+     }
+     await  this.waitforme(this.state.speedValue);
+     arrayBar[current_min].style.backgroundColor = "#D54A41";
+     arrayBar[i].style.backgroundColor = "#D54A41";
+     await  this.waitforme(this.state.speedValue);
+      let temp = arr[current_min];
+      arr[current_min] =arr[i];
+      arr[i] = temp;
+
+     this.setState({ arrayElements: arr })
+     arrayBar[i].style.backgroundColor = "gray";
+ }
+
+     
+    
+
    this.setState({processing:false});
    }
 
@@ -90,7 +89,7 @@ class BubbleSort extends Component {
   
     return (
       <div className="box">
-                <h3 className="algoName">Bubble Sort</h3>
+                <h3 className="algoName">Selection Sort</h3>
       <div className="bars">
       <Form.Label className="formLabel" >Speed</Form.Label>
 
@@ -135,7 +134,7 @@ class BubbleSort extends Component {
 </div>
 </div>
     
-<button className="sortBtn" disabled={this.state.processing} onClick={this.Bsort} >SORT</button>
+<button className="sortBtn" disabled={this.state.processing} onClick={this.Ssort} >SORT</button>
 
 
    </div>
@@ -143,4 +142,4 @@ class BubbleSort extends Component {
  }
 }
  
-export default BubbleSort ;
+export default SelectionSort ;
