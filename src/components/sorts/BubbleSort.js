@@ -30,10 +30,12 @@ class BubbleSort extends Component {
   generateNewArray()
   {
     let arr = []
-    for(let i = 0; i <= this.state.sizeValue; i++) {
+    for (let i = 0; i <= this.state.sizeValue; i++) {
+      
      let newNumber = Math.floor(Math.random() * 100+1); 
      arr.push(newNumber)
     }
+
   this.setState({ arrayElements: arr });
   }
   handleRangeChangeSpeed(e) {
@@ -41,6 +43,7 @@ class BubbleSort extends Component {
   }
   handleRangeChangeSize(e) {
     this.setState({ sizeValue: e.target.value });
+
     this.generateNewArray()
   }
 
@@ -107,10 +110,12 @@ class BubbleSort extends Component {
       <Form.Range
         value={this.state.sizeValue}
         onChange={this.handleRangeChangeSize}
-        className="rang_bar"
-        min={3}
-        max={30}
-      />
+            className="rang_bar"
+            min={2}
+             max={30}
+      
+          />
+          <button className="generBtn" disabled={this.state.processing} onClick={this.generateNewArray} >New Array</button>
         </div>
         
     <div className="view">

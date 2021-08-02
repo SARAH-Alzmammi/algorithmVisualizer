@@ -108,7 +108,8 @@ class InsertionSort extends Component {
         className="rang_bar"
         min={3}
         max={30}
-      />
+          />
+                    <button className="generBtn" disabled={this.state.processing} onClick={this.generateNewArray} >New Array</button>
         </div>
         
     <div className="view">

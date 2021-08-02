@@ -37,7 +37,18 @@ color:white;
 display: flex;
 align-items:flex-end;
 }
-
+.generBtn{
+ background-color:#908378;
+padding: .2rem .2rem;
+border: none;
+border-radius:1rem;
+color:white;
+width:20%;
+margin-top: 1rem;
+}
+.generBtn:disabled{
+ background-color:gray;
+}
 .sortBtn:disabled{
  background-color:gray;
 }
