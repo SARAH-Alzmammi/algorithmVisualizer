@@ -1,145 +1,95 @@
-import React, { Component } from 'react';
+import React, { useContext } from 'react';
 import './sort.css';
-import { Form } from 'react-bootstrap';
+import {Button  } from 'react-bootstrap';
+import Controllers from '../controllers/Controllers';
+import { ArrayContext } from '../contexts/ArrayContext'
+import {SpeedContext} from '../contexts/SpeedContext'
+import {IsProcessingContext} from '../contexts/IsProcessingContext'
 
-class InsertionSort extends Component {
- constructor(props) {
-  super(props);
-   this.state = {
-     processing: false,
-     speedValue: 500,
-     sizeValue: 5,
-     arrayElements: [50, 40, 90, 30, 10],
-   }
-  this.Isort = this.Isort.bind(this);
-   this.waitforme = this.waitforme.bind(this);
-   
-   this.handleRangeChangeSpeed = this.handleRangeChangeSpeed.bind(this);
-   this.handleRangeChangeSize = this.handleRangeChangeSize.bind(this);
-   this.generateNewArray = this.generateNewArray.bind(this);
-  }
-  waitforme(milisec) { 
+
+function InsertionSort(){
+
+  let { isProcessing,changeIsProcessing } = useContext(IsProcessingContext);
+  let { speed } = useContext(SpeedContext);
+  let { array, setArray } = useContext(ArrayContext);
+
+  function   waitforme() { 
     return new Promise(resolve => { 
-        setTimeout(() => { resolve('') }, milisec); 
+        setTimeout(() => { resolve('') }, speed); 
     }) 
   }
 
+  async function  Isort() 
+{
+  
+    await changeIsProcessing()
 
-  generateNewArray()
-  {
-    let arr = []
-    for(let i = 0; i <= this.state.sizeValue; i++) {
-     let newNumber = Math.floor(Math.random() * 100+1); 
-     arr.push(newNumber)
-    }
-  this.setState({ arrayElements: arr });
-  }
-  handleRangeChangeSpeed(e) {
-    this.setState({speedValue: e.target.value});
-  }
-  handleRangeChangeSize(e) {
-    this.setState({ sizeValue: e.target.value });
-    this.generateNewArray()
-  }
-
-
-  async Isort() {
-//blue ==> in process #417AD5
-// red ==> not right //#D54A41
-//green ==> good     #4F7942
-   this.setState({processing:true});
-
-    let arr = this.state.arrayElements
- 
     let arrayBar = document.getElementsByClassName('arrayElement')
 
-    for (let i = 1; i < arr.length; i++){
+    for (let i = 1; i < array.length; i++){
 
-      let current = arr[i];
+      let current = array[i];
       let j = i - 1;//before the current position
-      await this.waitforme(this.state.speedValue);
+      await waitforme();
       arrayBar[i].style.backgroundColor = "#417AD5"; //current
  
-      while (j >= 0 && arr[j] > current) {
-        await this.waitforme(this.state.speedValue);
+      while (j >= 0 && array[j] > current) {
+        await waitforme();
 
-        arr[j + 1] = arr[j];
-        this.setState({ arrayElements: arr })
+        array[j + 1] = array[j];
+        let newArray = [...array]//clone  to cause to re-render
+        setArray(newArray)
         arrayBar[j].style.backgroundColor = "#D54A41"; 
         arrayBar[j+1].style.backgroundColor = "#D54A41";
         j--;
 
       }
-      arr[j + 1] = current;
-      this.setState({ arrayElements: arr })
+      array[j + 1] = current;
+      let newArray = [...array] //clone  to cause to re-render
+      setArray(newArray)
       arrayBar[j + 1].style.backgroundColor = "#4F7942";
-      await this.waitforme(this.state.speedValue);
+      await waitforme();
 
       arrayBar[j + 1].style.backgroundColor = "gray";
     }
  
-   this.setState({processing:false});
-   }
+    await changeIsProcessing()
+}
+   
+
 
   
-  render() {
-  
+   return (
+<div className="box">
+  <h3 className="algoName">Insertion Sort</h3>
+  <Controllers />
+
+  <div className="view" >
+
+
+    <div className="arrayContainer" key={array} >
+    { array.map((value, idx) => {
+
     return (
-      <div className="box">
-        <h3 className="algoName">Insertion Sort</h3>
-        <div className="bars">
-          
-      <Form.Label className="formLabel" >Speed</Form.Label>
+      <div key={idx} >
+      <p className="arrayValue" >{value}</p>
+      <div className="arrayElement" 
+      style={{
+      height: `${value}px`,
+      width: `1rem`,
+      }}>
+      </div>
+      </div>
+      )
+      })}
+      </div>
+      <Button size="sm" className="mt-3  w-50 sortBtn"onClick={Isort} disabled={isProcessing} >SORT</Button >
+    </div>
 
-      <Form.Range
-        value={this.state.speedValue}
-        onChange={this.handleRangeChangeSpeed}
-        className="rang_bar"
-        min={250}
-            max={3000}
 
-      />
-    
-      <Form.Label className="formLabel">Size of the array : <span>{ this.state.sizeValue}</span></Form.Label>
  
-      <Form.Range
-        value={this.state.sizeValue}
-        onChange={this.handleRangeChangeSize}
-        className="rang_bar"
-        min={3}
-        max={30}
-          />
-                    <button className="generBtn" disabled={this.state.processing} onClick={this.generateNewArray} >New Array</button>
-        </div>
-        
-    <div className="view">
-
-      <div className="arrayContainer" key={this.state.arrayElements} >
-        { this.state.arrayElements.map((value, idx) => (
-          <div>
-            <p className="arrayValue">{value}</p>
-            
-          <div className="arrayElement" key={idx}
-            style={{
-              height: `${value}px`,
-              width: `1rem`,
-              }}
-            >
-          </div>
-       
-          </div>
-          
-     ))}
 </div>
-</div>
-
-    
-<button className="sortBtn" disabled={this.state.processing} onClick={this.Isort} >SORT</button>
-
-
-   </div>
-   );
- }
+);
 }
  
 export default InsertionSort ;

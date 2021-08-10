@@ -1,12 +1,8 @@
 import React, { Component } from 'react';
 import './Home.css'
 
-class Home extends Component {
- constructor(props) {
-  super(props);
-  this.state = {  }
- }
- render() { 
+function Home () {
+
   return (
    <div className="HomeContainer">
       <h1>AV</h1>
@@ -18,7 +14,7 @@ class Home extends Component {
       </div>
    </div>
    );
- }
+ 
 }
  
 export default Home;

@@ -1,146 +1,92 @@
-import React, { Component } from 'react';
+import React, {useState, useContext,useEffect } from 'react';
 import './sort.css';
-import { Form } from 'react-bootstrap';
+import Controllers from '../controllers/Controllers';
+import { ArrayContext } from '../contexts/ArrayContext'
+import {SpeedContext} from '../contexts/SpeedContext'
+import {IsProcessingContext} from '../contexts/IsProcessingContext'
+import {Button  } from 'react-bootstrap';
+function SelectionSort() {
+  let { isProcessing,changeIsProcessing } = useContext(IsProcessingContext);
+  let { speed } = useContext(SpeedContext);
+  let { array, setArray } = useContext(ArrayContext);
 
-class SelectionSort extends Component {
- constructor(props) {
-  super(props);
-   this.state = {
-     processing: false,
-     speedValue: 500,
-     sizeValue: 5,
-     arrayElements: [50, 40, 90, 30, 10],
-   }
-  this.Ssort = this.Ssort.bind(this);
-   this.waitforme = this.waitforme.bind(this);
-   
-   this.handleRangeChangeSpeed = this.handleRangeChangeSpeed.bind(this);
-   this.handleRangeChangeSize = this.handleRangeChangeSize.bind(this);
-   this.generateNewArray = this.generateNewArray.bind(this);
-  }
-  waitforme(milisec) { 
+  function   waitforme() { 
     return new Promise(resolve => { 
-        setTimeout(() => { resolve('') }, milisec); 
+        setTimeout(() => { resolve('') }, speed); 
     }) 
   }
+  async function  Ssort() {
 
+  await changeIsProcessing()
 
-  generateNewArray()
-  {
-    let arr = []
-    for(let i = 0; i <= this.state.sizeValue; i++) {
-     let newNumber = Math.floor(Math.random() * 100+1); 
-     arr.push(newNumber)
-    }
-  this.setState({ arrayElements: arr });
-  }
-  handleRangeChangeSpeed(e) {
-    this.setState({speedValue: e.target.value});
-  }
-  handleRangeChangeSize(e) {
-    this.setState({ sizeValue: e.target.value });
-    this.generateNewArray()
-  }
-
-
-  async Ssort() {
-//blue ==> in process #417AD5
-//red ==> not right //#D54A41
-//green ==> good    //#4F7942
-   this.setState({processing:true});
-
-   let arr = this.state.arrayElements
    let arrayBar =  document.getElementsByClassName('arrayElement')
-    for (let i = 0; i < arr.length; i++) {
-     let current_min = i;
+    for (let i = 0; i < array.length; i++) {
+      let current_min = i;
 
-     await  this.waitforme(this.state.speedValue);
-     arrayBar[i].style.backgroundColor = "#417AD5";
+      await  waitforme();
+      arrayBar[i].style.backgroundColor = "#417AD5";
 
-     for (let j = i + 1; j < arr.length; j++) {
-      await  this.waitforme(this.state.speedValue);
-      arrayBar[j].style.backgroundColor = "#D54A41";
-     if (arr[j] < arr[current_min]) {
-      current_min = j
-      }
-      await  this.waitforme(this.state.speedValue);
-      arrayBar[j].style.backgroundColor = "gray";
-     }
-     await  this.waitforme(this.state.speedValue);
-     arrayBar[current_min].style.backgroundColor = "#D54A41";
-     arrayBar[i].style.backgroundColor = "#D54A41";
-     await  this.waitforme(this.state.speedValue);
-      let temp = arr[current_min];
-      arr[current_min] =arr[i];
-      arr[i] = temp;
+      for (let j = i + 1; j < array.length; j++) {
+          await  waitforme();
+          arrayBar[j].style.backgroundColor = "#D54A41";
+          if (array[j] < array[current_min]) {
+            current_min = j
+          }
+          await  waitforme();
+          arrayBar[j].style.backgroundColor = "gray";
+        }
+        
+        await waitforme();
 
-     this.setState({ arrayElements: arr })
-     arrayBar[i].style.backgroundColor = "gray";
- }
+        arrayBar[current_min].style.backgroundColor = "#D54A41";
+        arrayBar[i].style.backgroundColor = "#D54A41";
+        await  waitforme();
+        let temp = array[current_min];
+        array[current_min] =array[i];
+        array[i] = temp;
 
-     
-    
-
-   this.setState({processing:false});
+        let newArray = [...array]//clone  to cause to re-render
+        setArray(newArray)
+        arrayBar[i].style.backgroundColor = "gray";
+  }
+ 
+  await changeIsProcessing()
    }
 
   
-  render() {
+
   
     return (
-      <div className="box">
-                <h3 className="algoName">Selection Sort</h3>
-      <div className="bars">
-      <Form.Label className="formLabel" >Speed</Form.Label>
-
-      <Form.Range
-        value={this.state.speedValue}
-        onChange={this.handleRangeChangeSpeed}
-        className="rang_bar"
-        min={250}
-        max={3000}
-      />
-    
-      <Form.Label className="formLabel">Size of the array : <span>{ this.state.sizeValue}</span></Form.Label>
-
-      <Form.Range
-        value={this.state.sizeValue}
-        onChange={this.handleRangeChangeSize}
-        className="rang_bar"
-        min={3}
-        max={30}
-          />
-      <button className="generBtn" disabled={this.state.processing} onClick={this.generateNewArray} >New Array</button>
-        </div>
-        
-    <div className="view">
-    <div className="container">
-      <div className="arrayContainer" key={this.state.arrayElements} >
-        { this.state.arrayElements.map((value, idx) => (
-          <div>
+        <div className="box">
+        <h3 className="algoName">Selection Sort</h3>
+        <Controllers />
+        <div className="view">
+          <div className="container">
+            <div className="arrayContainer" key={array} >
+            { array.map((value, idx) => (
+            <div>
             <p className="arrayValue">{value}</p>
-            
-          <div className="arrayElement" key={idx}
+
+            <div className="arrayElement" key={idx}
             style={{
-              height: `${value}px`,
-              width: `1rem`,
-              }}
+            height: `${value}px`,
+            width: `1rem`,
+            }}
             >
+            </div>
+
+            </div>
+            ))}
           </div>
-       
           </div>
-          
-     ))}
-</div>
-</div>
-</div>
-    
-<button className="sortBtn" disabled={this.state.processing} onClick={this.Ssort} >SORT</button>
+          <Button size="sm" className="mt-3 w-50 sortBtn"onClick={Ssort} disabled={isProcessing} >SORT</Button >
+
+        </div>
 
 
-   </div>
+        </div>
    );
- }
+ 
 }
  
 export default SelectionSort ;
