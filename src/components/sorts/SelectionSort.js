@@ -1,21 +1,28 @@
 import React, {useState, useContext,useEffect } from 'react';
-import './sort.css';
+import '../css/sort.css';
 import Controllers from '../controllers/Controllers';
 import { ArrayContext } from '../contexts/ArrayContext'
 import {SpeedContext} from '../contexts/SpeedContext'
 import {IsProcessingContext} from '../contexts/IsProcessingContext'
-import {Button  } from 'react-bootstrap';
+import { Button } from 'react-bootstrap';
+
+
+import delay from '../helper'
+import ColorKey from '../ColorKey';
+
+
+
+
+
+
+
+
 function SelectionSort() {
   let { isProcessing,changeIsProcessing } = useContext(IsProcessingContext);
   let { speed } = useContext(SpeedContext);
   let { array, setArray } = useContext(ArrayContext);
 
-  function   waitforme() { 
-    return new Promise(resolve => { 
-        setTimeout(() => { resolve('') }, speed); 
-    }) 
-  }
-  async function  Ssort() {
+  async function  SelectionSortFunction() {
 
   await changeIsProcessing()
 
@@ -23,24 +30,24 @@ function SelectionSort() {
     for (let i = 0; i < array.length; i++) {
       let current_min = i;
 
-      await  waitforme();
-      arrayBar[i].style.backgroundColor = "#417AD5";
 
+      arrayBar[i].style.backgroundColor = "#417AD5";
+      await  delay(speed);
       for (let j = i + 1; j < array.length; j++) {
-          await  waitforme();
+          await  delay(speed);
           arrayBar[j].style.backgroundColor = "#D54A41";
           if (array[j] < array[current_min]) {
             current_min = j
           }
-          await  waitforme();
+          await  delay(speed);
           arrayBar[j].style.backgroundColor = "gray";
         }
         
-        await waitforme();
+        await delay(speed);
 
         arrayBar[current_min].style.backgroundColor = "#D54A41";
         arrayBar[i].style.backgroundColor = "#D54A41";
-        await  waitforme();
+        await  delay(speed);
         let temp = array[current_min];
         array[current_min] =array[i];
         array[i] = temp;
@@ -79,8 +86,8 @@ function SelectionSort() {
             ))}
           </div>
           </div>
-          <Button size="sm" className="mt-3 w-50 sortBtn"onClick={Ssort} disabled={isProcessing} >SORT</Button >
-
+          <Button size="sm" className="mt-3 w-50 sortBtn"onClick={SelectionSortFunction} disabled={isProcessing} >SORT</Button >
+          <ColorKey/>
         </div>
 
 

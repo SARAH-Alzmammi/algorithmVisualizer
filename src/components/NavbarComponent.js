@@ -1,24 +1,26 @@
 import React from 'react'
-import { Navbar, Nav, Container } from 'react-bootstrap';
+import { Navbar, Nav, Container,NavDropdown } from 'react-bootstrap';
 
 
-import './NavbarClass.css';
+import './css/NavbarClass.css';
 
 
 function NavbarComponent(){ 
   return (
     <div>
-      <Navbar  expand="lg">
+      <Navbar  expand="lg" >
        <Container>
-        <Navbar.Brand href='/bubblesort' className="navBrand">AV</Navbar.Brand>
+        <Navbar.Brand href='/' className="navBrand">AV</Navbar.Brand>
         
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav">
             <Nav className="me-auto">
-              <Nav.Link   href='/' className="navLink">Home</Nav.Link>
-              <Nav.Link href='/bubblesort' >Bubble Sort</Nav.Link>
-              <Nav.Link href='/insertionsort'insertionsort >Insertion Sort</Nav.Link>
-              <Nav.Link href='/selectionsort' >Selection Sort</Nav.Link>
+              <NavDropdown title="Sorting Algorithms" id="basic-nav-dropdown">
+              <NavDropdown.Item href="/bubblesort">Bubble Sort</NavDropdown.Item>
+              <NavDropdown.Item href="/insertionsort">Insertion Sort</NavDropdown.Item>
+              <NavDropdown.Item href="/selectionsort">Selection Sort</NavDropdown.Item>
+              </NavDropdown>
+              <Nav.Link variant="secondary" href='/about' >About</Nav.Link>
 
             </Nav>
           </Navbar.Collapse>

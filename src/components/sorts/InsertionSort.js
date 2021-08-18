@@ -1,10 +1,15 @@
 import React, { useContext } from 'react';
-import './sort.css';
+import '../css/sort.css';
 import {Button  } from 'react-bootstrap';
 import Controllers from '../controllers/Controllers';
 import { ArrayContext } from '../contexts/ArrayContext'
 import {SpeedContext} from '../contexts/SpeedContext'
 import {IsProcessingContext} from '../contexts/IsProcessingContext'
+
+
+import delay from '../helper'
+import ColorKey from '../ColorKey';
+
 
 
 function InsertionSort(){
@@ -13,13 +18,7 @@ function InsertionSort(){
   let { speed } = useContext(SpeedContext);
   let { array, setArray } = useContext(ArrayContext);
 
-  function   waitforme() { 
-    return new Promise(resolve => { 
-        setTimeout(() => { resolve('') }, speed); 
-    }) 
-  }
-
-  async function  Isort() 
+  async function  InsertionSortFunctopn() 
 {
   
     await changeIsProcessing()
@@ -30,11 +29,11 @@ function InsertionSort(){
 
       let current = array[i];
       let j = i - 1;//before the current position
-      await waitforme();
+
       arrayBar[i].style.backgroundColor = "#417AD5"; //current
- 
+      await delay(speed);
       while (j >= 0 && array[j] > current) {
-        await waitforme();
+        await delay(speed);
 
         array[j + 1] = array[j];
         let newArray = [...array]//clone  to cause to re-render
@@ -48,7 +47,7 @@ function InsertionSort(){
       let newArray = [...array] //clone  to cause to re-render
       setArray(newArray)
       arrayBar[j + 1].style.backgroundColor = "#4F7942";
-      await waitforme();
+      await delay(speed);
 
       arrayBar[j + 1].style.backgroundColor = "gray";
     }
@@ -83,7 +82,8 @@ function InsertionSort(){
       )
       })}
       </div>
-      <Button size="sm" className="mt-3  w-50 sortBtn"onClick={Isort} disabled={isProcessing} >SORT</Button >
+         <Button size="sm" className="mt-3  w-50 sortBtn" onClick={InsertionSortFunctopn} disabled={isProcessing} >SORT</Button >
+         <ColorKey/>
     </div>
 
 

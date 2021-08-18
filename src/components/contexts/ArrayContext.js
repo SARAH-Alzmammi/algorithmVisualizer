@@ -8,7 +8,7 @@ export function ArrayProvider(props) {
   
  let [size, setSize] = useState(5);
 
- const generateNewArray = (e) => {
+ const generateNewArray = () => {
   let arr = []
   for(let i = 0; i < size; i++) {
    let newNumber = Math.floor(Math.random() * 100+1); 

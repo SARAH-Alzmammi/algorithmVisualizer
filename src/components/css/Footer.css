@@ -1,0 +1,6 @@
+.footer_container{
+ margin: 10rem auto;
+display: flex;
+justify-content: center;
+ color: #6c757d;
+}

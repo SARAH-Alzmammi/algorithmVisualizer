@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import './Home.css'
+import './css/Home.css'
 
 function Home () {
 
@@ -8,9 +8,9 @@ function Home () {
       <h1>AV</h1>
       <p>Algorithm Visualizer</p>
       <div className="links">
-        <a href="/bubblesort">bubblesort</a>
-        <a href="/selectionsort">selectionsort</a>
-        <a href="/insertionsort">insertionsort</a>
+        <a href="/bubblesort">Bubblesort</a>
+        <a href="/selectionsort">Selectionsort</a>
+        <a href="/insertionsort">Insertionsort</a>
       </div>
    </div>
    );

@@ -2,12 +2,12 @@
 margin-top: 3rem;
 text-align: center;
 }
-h1{
- color:#B284BE;
+.HomeContainer h1{
+ color:#957DAD;
  font-size: 10rem !important;
 }
-p{
- color:#908378;
+.HomeContainer p{
+ color:#3D3D3D;
  font-size:2rem;
 }
 
@@ -21,7 +21,7 @@ p{
 
 .links a{
 color: white;
-background-color: #908378;
+background-color: #3D3D3D;
 text-decoration : none;
 padding: 0.5rem 0.8rem;
 border-radius:0.5rem;

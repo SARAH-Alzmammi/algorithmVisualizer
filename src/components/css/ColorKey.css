@@ -1,0 +1,37 @@
+.colorkey-container{
+ margin-top:1rem;
+ display: flex;
+ justify-content: space-between;
+ flex-wrap: wrap;
+}
+
+.sqr{
+ height:0.8rem;
+ width: 0.8rem;
+}
+.ProcessingSqr{
+ background-color: #417AD5;
+
+
+}
+.notSqr{
+ background-color: #D54A41;
+
+
+}
+.yestSqr{
+ background-color: #4F7942;
+
+
+}
+.row-Container{
+ display: flex;
+}
+.row-Container span{
+ align-self: center;
+}
+.row-Container p{
+padding-top: 1rem;
+padding-left: 0.5rem;
+ color: #6c757d;
+}

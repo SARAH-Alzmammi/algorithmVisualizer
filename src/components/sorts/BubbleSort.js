@@ -1,10 +1,19 @@
-import React, {useContext} from 'react';
-import './sort.css';
-import {Button  } from 'react-bootstrap';
+import React, { useContext } from 'react';
+
+import '../css/sort.css';
+import { Button } from 'react-bootstrap';
+
+import delay from '../helper'
+import ColorKey from '../ColorKey';
+
 import Controllers from '../controllers/Controllers';
+
 import { ArrayContext } from '../contexts/ArrayContext'
 import {SpeedContext} from '../contexts/SpeedContext'
 import {IsProcessingContext} from '../contexts/IsProcessingContext'
+
+
+
 
 
 function BubbleSort() {
@@ -14,13 +23,8 @@ function BubbleSort() {
   let { speed } = useContext(SpeedContext);
   let { array, setArray } = useContext(ArrayContext);
 
-  function   waitforme() { 
-    return new Promise(resolve => { 
-        setTimeout(() => { resolve('') }, speed); 
-    }) 
-  }
 
-  async function Bsort() {
+  async function BubbleSortFunction() {
   
   await changeIsProcessing()
 
@@ -29,27 +33,31 @@ function BubbleSort() {
      for (let i = 0; i < array.length - 1; i++) {
      
        for (let j = 0; j < array.length - i - 1; j++) {
-
-       arrayBar[j].style.backgroundColor = "#417AD5";
-       arrayBar[j + 1].style.backgroundColor = "#417AD5";
        
+       arrayBar[j].style.backgroundColor = "#417AD5";
+      arrayBar[j + 1].style.backgroundColor = "#417AD5";
+         
+         await delay(speed);
+         
+
          if (array[j] > array[j + 1]) {
         
         arrayBar[j].style.backgroundColor = "#D54A41";
-        arrayBar[j+1].style.backgroundColor = "#D54A41";
-        await  waitforme();
+           arrayBar[j + 1].style.backgroundColor = "#D54A41";
+           
+        await  delay(speed);
          let temp = array[j];
          array[j] =array[j+1];
          array[j + 1] = temp;
          arrayBar[j].style.backgroundColor = "gray";
          arrayBar[j + 1].style.backgroundColor = "gray";
           // setArray(array) //Not like this becuse it is basically the same array(same reference). 
-         let newArray = [...array]//clone  to cause to re-render
+         let newArray = [...array] //clone  to cause to re-render
           setArray(newArray)
        } else {
         arrayBar[j].style.backgroundColor = " #4F7942";
         arrayBar[j+1].style.backgroundColor = " #4F7942";
-        await  waitforme();
+        await  delay(speed);
         arrayBar[j].style.backgroundColor = "gray";
          arrayBar[j + 1].style.backgroundColor = "gray";
   
@@ -81,8 +89,12 @@ function BubbleSort() {
                 </div>
                 )
                 })}
-              </div>  
-              <Button size="sm" className="mt-3  w-50 sortBtn"onClick={Bsort} disabled={isProcessing} >SORT</Button >
+          </div>
+          <div className="sortBtn-colorkey">
+          <Button size="sm" className="mt-3  w-50 sortBtn" onClick={BubbleSortFunction} disabled={isProcessing} >SORT</Button >
+          <ColorKey/>
+          </div>
+
           </div> 
         </div>
    );
