@@ -8,7 +8,7 @@ import { Button } from 'react-bootstrap';
 
 
 import delay from '../helper'
-import ColorKey from '../ColorKey';
+import SortingColorKey from '../SortingColorKey';
 
 
 
@@ -29,13 +29,11 @@ function SelectionSort() {
    let arrayBar =  document.getElementsByClassName('arrayElement')
     for (let i = 0; i < array.length; i++) {
       let current_min = i;
-
-
       arrayBar[i].style.backgroundColor = "#417AD5";
       await  delay(speed);
       for (let j = i + 1; j < array.length; j++) {
           await  delay(speed);
-          arrayBar[j].style.backgroundColor = "#D54A41";
+          arrayBar[j].style.backgroundColor = "#417AD5";
           if (array[j] < array[current_min]) {
             current_min = j
           }
@@ -87,7 +85,7 @@ function SelectionSort() {
           </div>
           </div>
           <Button size="sm" className="mt-3 w-50 sortBtn"onClick={SelectionSortFunction} disabled={isProcessing} >SORT</Button >
-          <ColorKey/>
+          <SortingColorKey/>
         </div>
 
 

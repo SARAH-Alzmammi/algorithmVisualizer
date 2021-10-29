@@ -4,7 +4,7 @@ import '../css/sort.css';
 import { Button } from 'react-bootstrap';
 
 import delay from '../helper'
-import ColorKey from '../ColorKey';
+import SortingColorKey from '../SortingColorKey';
 
 import Controllers from '../controllers/Controllers';
 
@@ -35,7 +35,7 @@ function BubbleSort() {
        for (let j = 0; j < array.length - i - 1; j++) {
        
        arrayBar[j].style.backgroundColor = "#417AD5";
-      arrayBar[j + 1].style.backgroundColor = "#417AD5";
+        arrayBar[j + 1].style.backgroundColor = "#417AD5";
          
          await delay(speed);
          
@@ -92,7 +92,7 @@ function BubbleSort() {
           </div>
           <div className="sortBtn-colorkey">
           <Button size="sm" className="mt-3  w-50 sortBtn" onClick={BubbleSortFunction} disabled={isProcessing} >SORT</Button >
-          <ColorKey/>
+          <SortingColorKey/>
           </div>
 
           </div> 

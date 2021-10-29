@@ -1,6 +1,6 @@
 import './css/ColorKey.css'
 
-const ColorKey = () => {
+const SearchingColorKey = () => {
  return (
   
   <div className="colorkey-container">
@@ -16,14 +16,14 @@ const ColorKey = () => {
    <div className="row-Container">
 
 <span className=" sqr notSqr"></span>
-<p>Not Sorted</p>
+<p>Not Found  </p>
 
    </div>
    
    <div className="row-Container">
 
 <span className=" sqr yestSqr"></span>
-<p>Sorted</p>
+<p>Founded</p>
 
    </div>
    
@@ -33,4 +33,4 @@ const ColorKey = () => {
  );
 }
  
-export default ColorKey;
+export default SearchingColorKey;

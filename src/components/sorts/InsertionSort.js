@@ -8,7 +8,7 @@ import {IsProcessingContext} from '../contexts/IsProcessingContext'
 
 
 import delay from '../helper'
-import ColorKey from '../ColorKey';
+import SortingColorKey from '../SortingColorKey';
 
 
 
@@ -83,7 +83,7 @@ function InsertionSort(){
       })}
       </div>
          <Button size="sm" className="mt-3  w-50 sortBtn" onClick={InsertionSortFunctopn} disabled={isProcessing} >SORT</Button >
-         <ColorKey/>
+         <SortingColorKey/>
     </div>
 
 

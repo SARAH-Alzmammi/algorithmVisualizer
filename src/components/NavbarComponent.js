@@ -20,6 +20,12 @@ function NavbarComponent(){
               <NavDropdown.Item href="/insertionsort">Insertion Sort</NavDropdown.Item>
               <NavDropdown.Item href="/selectionsort">Selection Sort</NavDropdown.Item>
               </NavDropdown>
+
+              <NavDropdown title="Serch Algorithms" id="basic-nav-dropdown">
+              <NavDropdown.Item href="/linearsearch">Linear Search</NavDropdown.Item>
+              <NavDropdown.Item href="/binarysearch">Binary Search</NavDropdown.Item>
+              </NavDropdown>
+
               <Nav.Link variant="secondary" href='/about' >About</Nav.Link>
 
             </Nav>

@@ -17,7 +17,7 @@ export function ArrayProvider(props) {
   setArray(arr);
   }
 
-  const changeSize = e => {
+   const  changeSize = e => {
     setSize(e.target.value)
     generateNewArray()
   };
