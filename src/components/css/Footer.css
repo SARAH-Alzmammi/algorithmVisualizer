@@ -1,6 +1,8 @@
 .footer_container{
- margin: 8rem auto;
+ margin: 5rem auto;
+ margin-top: 15rem;
 display: flex;
 justify-content: center;
  color: #6c757d;
+ border-bottom: 1px solid gray;
 }

@@ -1,25 +1,20 @@
 import React, { useContext } from 'react';
 
-import {Button  } from 'react-bootstrap';
-import '../css/search.css';
-
 
 import delay from '../helper'
 
-import SearchingColorKey from '../SearchingColorKey';
-
-import SearchControllers from '../controllers/SearchControllers';
 
 import { ArrayContext } from '../contexts/ArrayContext'
 import {SpeedContext} from '../contexts/SpeedContext'
 import {IsProcessingContext} from '../contexts/IsProcessingContext'
 import {SearchKeyContext} from '../contexts/SearchKeyContext'
 
+import SearchesView from './SearchesView'
 
 function LinearSearch() {
 
 
-  let { isProcessing,changeIsProcessing } = useContext(IsProcessingContext);
+  let {changeIsProcessing } = useContext(IsProcessingContext);
   let { speed } = useContext(SpeedContext);
   let { array } = useContext(ArrayContext);
   let { key } = useContext(SearchKeyContext);
@@ -48,40 +43,13 @@ function LinearSearch() {
         await delay(speed);
         arrayBar[i].style.backgroundColor = "#D54A41";
        }
-       }
-       
-    
+       }   
   await changeIsProcessing()
    }
-
+let description="Linear search is a very simple search algorithm. In this type of search, a sequential search is made over all items one by one. Every item is checked and if a match is found then that particular item is returned, otherwise the search continues till the end of the data collection."
   
-    return (
-        <div className="box">
-          <h3 className="algoName">Linear Search</h3>
-          <SearchControllers />
-          <div className="view" >
-              <div className="arrayContainerSearch" key={array} >
-                {array.map((value, idx) => {
-                return (
-                <div key={idx} >
-                <div className="arrayElementSearch" 
-                  style={{
-                    height: `3rem`,
-                    width: `3rem`,
-                   }}>
-                   { value}
-                </div>
-                </div>
-                )
-                })}
-          </div>
-          <div className="sortBtn-colorkey">
-          <Button size="sm" className="mt-3  w-50 sortBtn" onClick={LinearSearchFunction} disabled={isProcessing} >Search </Button >
-          <SearchingColorKey/>
-          </div>
-
-          </div> 
-        </div>
+  return (
+    <SearchesView name="Linear Search" function={LinearSearchFunction} description={ description  }/>
    );
  }
 

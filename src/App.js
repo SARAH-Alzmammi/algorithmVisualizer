@@ -27,6 +27,7 @@ import BinarySearch from './components/searches/BinarySearch';
 import {Route,BrowserRouter as Router } from "react-router-dom";
 
 
+
 function App() {
   return (
     <div className="App">
@@ -41,7 +42,8 @@ function App() {
                 <Route exact path="/bubblesort" component={BubbleSort} />
                 <Route exact path="/insertionsort" component={InsertionSort}/>
                 <Route exact path="/selectionsort" component={SelectionSort}/>
-                <Route exact path="/about" component={About}/>
+                <Route exact path="/about" component={About} />
+                
                 <Route exact path="/linearsearch" component={LinearSearch}/>
                 <Route exact path="/binarysearch" component={BinarySearch}/>
                 </Router>

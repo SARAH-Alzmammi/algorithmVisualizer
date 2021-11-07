@@ -1,14 +1,11 @@
 import React, { useContext ,useState,useEffect} from 'react';
 
-import { Button  } from 'react-bootstrap';
-import '../css/search.css';
 
+
+import SearchesView from './SearchesView'
 
 import delay from '../helper'
 
-import SearchingColorKey from '../SearchingColorKey';
-
-import SearchControllers from '../controllers/SearchControllers';
 
 import { ArrayContext } from '../contexts/ArrayContext'
 import {SpeedContext} from '../contexts/SpeedContext'
@@ -19,7 +16,7 @@ import {SearchKeyContext} from '../contexts/SearchKeyContext'
 function BinarySearch() {
 
 
-  let { isProcessing, changeIsProcessing } = useContext(IsProcessingContext);
+  let {  changeIsProcessing } = useContext(IsProcessingContext);
   let { speed } = useContext(SpeedContext);
   let { array, setArray } = useContext(ArrayContext);
   let { key } = useContext(SearchKeyContext);
@@ -38,11 +35,13 @@ function BinarySearch() {
   });
 
   async function BinarySearchFunction() {
+    
     await changeIsProcessing()
     
     let arrayBar = document.getElementsByClassName('arrayElementSearch')
     
     await delay(speed);
+
 
     arrayBar[parseInt(mid)].style.color = "#ffffff";
     arrayBar[parseInt(mid)].style.border = "none";
@@ -90,36 +89,10 @@ function BinarySearch() {
     }
 
   await changeIsProcessing()
-   }
-
-  
+  }
+  let description="Binary search is a fast search algorithm with run-time complexity of Ο(log n). For this algorithm to work properly, the data collection should be in sorted form.A binary search looks for a particular item by comparing the middle-most item of the collection. If a match occurs, then the index of the item is returned. If the middle item is greater than the item, then the item is searched in the sub-array to the left of the middle item. Otherwise, the item is searched for in the sub-array to the right of the middle item. This process continues on the sub-array as well until the size of the subarray reduces to zero."
     return (
-        <div className="box">
-          <h3 className="algoName">Binary Search</h3>
-          <SearchControllers />
-          <div className="view" >
-              <div className="arrayContainerSearch" key={array} >
-                {array.map((value, idx) => {
-                return (
-                <div key={idx} >
-                <div className="arrayElementSearch" 
-                  style={{
-                    height: `3rem`,
-                    width: `3rem`,
-                   }}>
-                   { value}
-                </div>
-                </div>
-                )
-                })}
-          </div>
-          <div className="sortBtn-colorkey">
-          <Button size="sm" className="mt-3  w-50 sortBtn" onClick={BinarySearchFunction} disabled={isProcessing} >Search </Button >
-          <SearchingColorKey/>
-          </div>
-
-          </div> 
-        </div>
+      <SearchesView name="Binary Search" function={BinarySearchFunction} description={ description  }/>
    );
  }
 

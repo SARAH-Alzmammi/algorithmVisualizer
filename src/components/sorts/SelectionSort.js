@@ -1,15 +1,12 @@
-import React, {useState, useContext,useEffect } from 'react';
-import '../css/sort.css';
-import Controllers from '../controllers/Controllers';
+import React, {useContext } from 'react';
 import { ArrayContext } from '../contexts/ArrayContext'
 import {SpeedContext} from '../contexts/SpeedContext'
 import {IsProcessingContext} from '../contexts/IsProcessingContext'
-import { Button } from 'react-bootstrap';
 
 
 import delay from '../helper'
-import SortingColorKey from '../SortingColorKey';
 
+import SortView from './SortView';
 
 
 
@@ -18,7 +15,7 @@ import SortingColorKey from '../SortingColorKey';
 
 
 function SelectionSort() {
-  let { isProcessing,changeIsProcessing } = useContext(IsProcessingContext);
+  let {changeIsProcessing } = useContext(IsProcessingContext);
   let { speed } = useContext(SpeedContext);
   let { array, setArray } = useContext(ArrayContext);
 
@@ -59,37 +56,16 @@ function SelectionSort() {
    }
 
   
+   let description = `This sorting method is based on in-place comparison and divides the array into two parts: the sorted part on the left end and the unsorted part on the right. 
 
+   The unsorted array's smallest element is chosen and swapped with the leftmost element, resulting in that element becoming a part of the sorted array. 
+   This operation continues to move the unsorted array boundary to the right by one element.
+   It has O(n2) average and worst case complexity, where n is the number of objects..
+   `
+ 
   
     return (
-        <div className="box">
-        <h3 className="algoName">Selection Sort</h3>
-        <Controllers />
-        <div className="view">
-          <div className="container">
-            <div className="arrayContainer" key={array} >
-            { array.map((value, idx) => (
-            <div>
-            <p className="arrayValue">{value}</p>
-
-            <div className="arrayElement" key={idx}
-            style={{
-            height: `${value}px`,
-            width: `1rem`,
-            }}
-            >
-            </div>
-
-            </div>
-            ))}
-          </div>
-          </div>
-          <Button size="sm" className="mt-3 w-50 sortBtn"onClick={SelectionSortFunction} disabled={isProcessing} >SORT</Button >
-          <SortingColorKey/>
-        </div>
-
-
-        </div>
+      <SortView name="Selection Sort" function={SelectionSortFunction} description={ description}/>
    );
  
 }

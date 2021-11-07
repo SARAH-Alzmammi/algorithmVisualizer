@@ -8,6 +8,7 @@ const About = () => {
  Bubble Sort, selection sort, and insertion sort. Furthermore, more algorithms will be added down the road.
 </p>
 
+<a href="https://www.tutorialspoint.com/data_structures_algorithms"target="_blank">Description references</a>
 </div>
   );
 }

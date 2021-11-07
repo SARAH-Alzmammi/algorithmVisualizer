@@ -1,16 +1,13 @@
 import React, { useContext } from 'react';
 
-import '../css/sort.css';
-import { Button } from 'react-bootstrap';
 
 import delay from '../helper'
-import SortingColorKey from '../SortingColorKey';
 
-import Controllers from '../controllers/Controllers';
 
 import { ArrayContext } from '../contexts/ArrayContext'
 import {SpeedContext} from '../contexts/SpeedContext'
 import {IsProcessingContext} from '../contexts/IsProcessingContext'
+import SortView from './SortView';
 
 
 
@@ -19,7 +16,7 @@ import {IsProcessingContext} from '../contexts/IsProcessingContext'
 function BubbleSort() {
 
 
-  let { isProcessing,changeIsProcessing } = useContext(IsProcessingContext);
+  let { changeIsProcessing } = useContext(IsProcessingContext);
   let { speed } = useContext(SpeedContext);
   let { array, setArray } = useContext(ArrayContext);
 
@@ -67,36 +64,12 @@ function BubbleSort() {
   await changeIsProcessing()
    }
 
-  
+  let description = `This sorting method is a comparison-based algorithm in which each pair of adjacent elements is compared, and if they are not in order, the elements get swapped.It has O(n2) average and worst-case complexity, where n is the number of items.
+  `
+
+
     return (
-        <div className="box">
-          <h3 className="algoName">Bubble Sort</h3>
-          <Controllers />
-
-          <div className="view" >
-
-              <div className="arrayContainer" key={array} >
-                {array.map((value, idx) => {
-                return (
-                <div key={idx} >
-                <p className="arrayValue" >{value}</p>
-                <div className="arrayElement" 
-                  style={{
-                    height: `${value}px`,
-                    width: `1rem`,
-                  }}>
-                </div>
-                </div>
-                )
-                })}
-          </div>
-          <div className="sortBtn-colorkey">
-          <Button size="sm" className="mt-3  w-50 sortBtn" onClick={BubbleSortFunction} disabled={isProcessing} >SORT</Button >
-          <SortingColorKey/>
-          </div>
-
-          </div> 
-        </div>
+      <SortView name="Bubble Sort" function={BubbleSortFunction} description={description }/>
    );
  }
 

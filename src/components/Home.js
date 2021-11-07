@@ -8,9 +8,11 @@ function Home () {
       <h1>AV</h1>
       <p>Algorithm Visualizer</p>
       <div className="links">
-        <a href="/bubblesort">Bubblesort</a>
-        <a href="/selectionsort">Selectionsort</a>
-        <a href="/insertionsort">Insertionsort</a>
+        <a href="/bubblesort">Bubble Sort</a>
+        <a href="/selectionsort">Selection Sort</a>
+        <a href="/insertionsort">Insertion Sort</a>
+        <a href="/binarysearch">Binary Search</a>
+        <a href="/linearsearch">Linear Search</a>
       </div>
    </div>
    );
