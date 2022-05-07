@@ -29,7 +29,7 @@ function InsertionSort() {
         let newArray = [...array]; //clone  to cause to re-render
         dispatch(setArray(newArray));
         arrayBar[j].style.backgroundColor = "#D54A41"; //red
-        arrayBar[j + 1].style.backgroundColor = "#D54A41";
+        arrayBar[j + 1].style.backgroundColor = "gray";
         j--;
       }
       array[j + 1] = current;
@@ -40,8 +40,10 @@ function InsertionSort() {
 
       arrayBar[j + 1].style.backgroundColor = "gray";
     }
+
     await dispatch(toggleIsProcessing());
   }
+
   let description =
     "This is an in-place comparison-based sorting algorithm. Here, a sub-list is maintained which is always sorted. For example, the lower part of an array is maintained to be sorted. An element that is to be 'inserted in this sorted sub-list, has to find its appropriate place, and then it has to be inserted there.  The array is searched sequentially and unsorted items are moved and inserted into the sorted sub-list (in the same array). Its average and worst-case complexity are of Ο(n2), where n is the number of items.";
   return (
