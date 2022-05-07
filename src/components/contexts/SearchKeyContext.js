@@ -3,7 +3,6 @@ import React, { createContext, useState } from "react";
 export const SearchKeyContext = createContext();
 
 export function SearchKeyProvider(props) {
-
   let [key, setKey] = useState(5);
 
   return (
